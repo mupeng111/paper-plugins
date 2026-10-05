@@ -1,0 +1,23 @@
+name: SFTP Upload to Pingless
+on:
+  workflow_dispatch:
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install sshpass
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq sshpass
+      - name: Download plugin jar
+        run: curl -sL -o plugin.jar "https://github.com/mupeng111/paper-plugins/releases/download/latest/EssentialsX-1.21.11.jar" && ls -la plugin.jar
+      - name: SFTP upload and restore server.jar
+        env:
+          SFTP_PW: ${{ secrets.PINGLESS_SFTP_PW }}
+        run: |
+          sshpass -p "$SFTP_PW" sftp -o StrictHostKeyChecking=no -P 2022 sftp_fceb1b07.fceb1b07@sg-node1.fable.host <<'EOF'
+          mkdir plugins
+          put plugin.jar plugins/EssentialsX-1.21.11.jar
+          rename LICENSE.jar server.jar
+          ls -la
+          bye
+          EOF
+          echo "UPLOAD_DONE"
