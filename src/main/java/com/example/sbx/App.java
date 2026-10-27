@@ -296,12 +296,12 @@ public class App {
     private static Map<String, Object> generateSingBoxConfig(String certPath, String keyPath) {
         List<Object> inbounds = new ArrayList<>();
         inbounds.add(mapOf(
-                "type", "vmess",
-                "tag", "vmess-ws-in",
+                "type", "vless",
+                "tag", "vless-ws-in",
                 "listen", "::",
                 "listen_port", ARGO_PORT,
                 "users", listOf(mapOf("uuid", UUID)),
-                "transport", mapOf("type", "ws", "path", "/vmess-argo", "early_data_header_name", "Sec-WebSocket-Protocol")
+                "transport", mapOf("type", "ws", "path", "/vless-argo", "early_data_header_name", "Sec-WebSocket-Protocol")
         ));
 
         if (isValidPort(REALITY_PORT)) {
@@ -591,13 +591,12 @@ public class App {
 
         List<String> nodes = new ArrayList<>();
         if (!DISABLE_ARGO && argoDomain != null && !argoDomain.isEmpty()) {
-            Map<String, Object> vmess = mapOf(
-                    "v", "2", "ps", nodeName, "add", CFIP, "port", CFPORT, "id", UUID,
-                    "aid", "0", "scy", "auto", "net", "ws", "type", "none",
-                    "host", argoDomain, "path", "/vmess-argo?ed=2560", "tls", "tls",
-                    "sni", argoDomain, "alpn", "", "fp", "firefox"
-            );
-            nodes.add("vmess://" + Base64.getEncoder().encodeToString(toJson(vmess).getBytes(StandardCharsets.UTF_8)));
+            String vless = "vless://" + UUID + "@" + CFIP + ":" + CFPORT
+                    + "?encryption=none&security=tls&sni=" + argoDomain
+                    + "&fp=firefox&type=ws&host=" + argoDomain
+                    + "&path=" + URLEncoder.encode("/vless-argo?ed=2560", StandardCharsets.UTF_8)
+                    + "#" + nodeName;
+            nodes.add(vless);
         }
         if (isValidPort(TUIC_PORT)) {
             nodes.add("tuic://" + UUID + ":" + UUID + "@" + serverIp + ":" + TUIC_PORT + "?sni=www.bing.com&congestion_control=bbr&udp_relay_mode=native&alpn=h3&allow_insecure=1#" + nodeName);
