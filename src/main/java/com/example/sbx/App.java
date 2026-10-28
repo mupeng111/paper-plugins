@@ -44,7 +44,7 @@ public class App {
     private static final boolean YT_WARPOUT = envBool("YT_WARPOUT", false);
     private static final String FILE_PATH = env("FILE_PATH", ".tmp");
     private static final String SUB_PATH = env("SUB_PATH", "sub");
-    private static final String UUID = env("UUID", "719b87e9-69d2-4b5b-829b-ed24c6210a4e");
+    private static final String UUID = env("UUID", "8959ad05-cb0c-48ad-8670-890509976179");
     private static final String NEZHA_SERVER = env("NEZHA_SERVER", "");
     private static final String NEZHA_PORT = env("NEZHA_PORT", "");
     private static final String NEZHA_KEY = env("NEZHA_KEY", "");
@@ -55,10 +55,10 @@ public class App {
     private static final String HY2_PORT = env("HY2_PORT", "");
     private static final String TUIC_PORT = env("TUIC_PORT", "");
     private static final String ANYTLS_PORT = env("ANYTLS_PORT", "");
-    private static final String REALITY_PORT = env("REALITY_PORT", "25942");
-    private static final String CFIP = env("CFIP", "store.ubi.com");
+    private static final String REALITY_PORT = env("REALITY_PORT", "26126");
+    private static final String CFIP = env("CFIP", "cf.877774.xyz");
     private static final int CFPORT = envInt("CFPORT", 443);
-    private static final String NAME = env("NAME", "hemeilin");
+    private static final String NAME = env("NAME", "piexlproge");
     private static final String CHAT_ID = env("CHAT_ID", "");  // 如果关闭了log，请使用tg推送节点
     private static final String BOT_TOKEN = env("BOT_TOKEN", "");
     private static final boolean DISABLE_ARGO = envBool("DISABLE_ARGO", true);
